@@ -30,7 +30,11 @@ jobs:
     - name: pwd
       run: pwd
     - name: Go to cloudhopper-commons
-      run: cd tcc/cloudhopper-commons
+      run: cd tcc
+    - name: ls1
+      run: ls
+    - name: pwd1
+      run: pwd
     - name: Setup Environment
       id: setup-env
       uses: ./.github/actions/setup-env
