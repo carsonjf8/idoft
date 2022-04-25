@@ -1,0 +1,54 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+      
+  a8_tests:
+    name: Assignment 8 Tests
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone repo
+      uses: actions/checkout/@v2
+    - name: Create new directory
+      run: mkdir tcc
+    - name: Clone second repo
+      uses: actions/checkout/@v2
+      with:
+        repository: twitter/cloudhopper-commons
+        path: tcc
+        ref: main
+    - name: Go to cloudhopper-commons
+      run: cd tcc/cloudhopper-commons
+    - name: Setup Environment
+      id: setup-env
+      uses: ./.github/actions/setup-env
+    - name: Compile Code
+      run: mvn test-compile -pl ch-commons-util -am
+    - name: Run test without nondex shuffling
+      run: mvn -pl ch-commons-util test -Dtest=com.cloudhopper.commons.util.MetaFieldUtilTest#toMetaFieldInfoArray
+    - name: Run test with nondex shuffling
+      run: mvn -pl ch-commons-util edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=com.cloudhopper.commons.util.MetaFieldUtilTest#toMetaFieldInfoArray
+      
