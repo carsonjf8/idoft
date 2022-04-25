@@ -25,9 +25,12 @@ jobs:
         repository: twitter/cloudhopper-commons
         path: tcc
         #ref: main
-    - name: Go to cloudhopper-commons
-      #run: cd tcc/cloudhopper-commons
+    - name: ls
       run: ls
+    - name: pwd
+      run: pwd
+    - name: Go to cloudhopper-commons
+      run: cd tcc/cloudhopper-commons
     - name: Setup Environment
       id: setup-env
       uses: ./.github/actions/setup-env
