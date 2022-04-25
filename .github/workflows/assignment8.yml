@@ -26,7 +26,8 @@ jobs:
         path: tcc
         #ref: main
     - name: Go to cloudhopper-commons
-      run: cd tcc/cloudhopper-commons
+      #run: cd tcc/cloudhopper-commons
+      run: ls
     - name: Setup Environment
       id: setup-env
       uses: ./.github/actions/setup-env
