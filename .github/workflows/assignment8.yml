@@ -24,7 +24,7 @@ jobs:
       with:
         repository: twitter/cloudhopper-commons
         path: tcc
-        ref: main
+        #ref: main
     - name: Go to cloudhopper-commons
       run: cd tcc/cloudhopper-commons
     - name: Setup Environment
